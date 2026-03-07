@@ -6,14 +6,38 @@ const botaoCadastrar = document.getElementById("botao-cadastrar");
 // Quando o botão for clicado, a função cadastrarJogo será executada.
 botaoCadastrar.addEventListener("click", cadastrarJogo);
 
+// Pega o campo de input do HTML que possui o id "campo-nome"
+const campoNome = document.getElementById("campo-nome");
+
+// Adiciona um "ouvinte de evento" ao campo
+// Quando ocorre o envento do teclado pressionando
+campoNome.addEventListener("keydown", eventoEnterCampo);
+
+// Função que sera executada quando ocorre um evento de teclado no campo nome
+function eventoEnterCampo(event){
+
+    // Verifica qual tecla foi precionada pelo usuario
+    // Se a tecla precionada for enter 
+    if (event.key === "Enter"){
+        
+        // Chama a função cadastrarJogo()
+        // Isso faz com que o jogo seja adicionado a lista
+        cadastrarJogo();
+    }
+}
+
 // Função responsável por cadastrar (adicionar) um jogo na lista
 function cadastrarJogo(){
-
-    // Pega o campo de input do HTML que possui o id "campo-nome"
-    const campoNome = document.getElementById("campo-nome");
-
     // Pega o valor digitado dentro do input
-    const nome = campoNome.value;
+    const nome = campoNome.value.trim();
+
+    // Verificar se o nome digitado contém menos de 2 caracter
+    if (nome.lenght < 2){
+    // Apresenta uma mensagem que contém menos 2 caracteres
+        alert("Nome deve conter no mínimo 2 caracter");
+    // Encerra a execução deste método, pois o não deve cadastrar quando o nome é inválido
+        return;
+    }
 
     // Cria um novo elemento <li> (item de lista) no HTML
     // Exemplo: <li></li>
@@ -30,4 +54,13 @@ function cadastrarJogo(){
     // Adiciona o novo <li> criado dentro da <ul>
     // Ou seja, adiciona um novo item na lista de jogos
     tagUl.appendChild(tagLi);
+
+    // Limpar campo
+    campoNome.value = "";
+
+    // Foco no campo do nome
+    campoNome.focus();
+
+    
+
 }
