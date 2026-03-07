@@ -1,36 +1,170 @@
-const botaoSalvar = document.getElementById("botao-salvar");
-botaoSalvar.addEventListener("click, salvar");
+// Começa com dois porque temos um no html
+let proximoId = 2;
 
-function salvar() {
-    const campoNome = document.getElementById("campo-nome");
-    const nome = campoNome.ariaValue;
+// Variavel para saber qual o colaborador que estavamos editando, se estiver com -1 estamos no modo de cadastro
+let indexParaEditar = -1;
 
-    const campoCargo = document.getElementById("campo-cargo");
-    const cargo = campoCargo.ariaValue;
+const botaoCadastrar = document.getElementById("botao-salvar")
+botaoCadastrar.addEventListener("click", salvar);
 
-    const campoHoras = document.getElementById("campo-horas");
-    const horas = campoHoras.value;
+const campoNome = document.getElementById("campo-nome")
+const campoCargo = document.getElementById("campo-cargo")
+const campoHoras = document.getElementById("campo-horas")
+const tbody = document.getElementById("colaboradores");
 
-    const ValorHora = obterValorHoraPorCargo(cargo);
+campoHoras.addEventListener("keydown", eventoEnter);
 
-    const salarioBruto = calcularSalarioBruto(ValorHora, horas);
-
-    console.log(nome, cargo, horas, ValorHora, salarioBruto);
+function eventoEnter(event) {
+    if (event.key === "Enter") {
+        salvar();
+    }
 }
 
-function calcularSalarioBruto(valorHora, quantidadeHoras){
+function salvar() {
+    const nome = campoNome.value.trim();
+    const cargo = campoCargo.value;
+    const horas = campoHoras.value;
+
+    if (nome.length < 3) {
+        alert("O nome deve ser conter mais que 3 caracteres");
+        return;
+    } else if (nome.length > 100) {
+        alert("O nome deve conter no maximo 100 caracteres");
+        return;
+    }
+
+    if (cargo === "") {
+        alert("Cargo deve ser selecionado")
+        return;
+    }
+
+    if (horas < 40 || horas > 400) {
+        alert("Quantidade de horas deve ser entre 40 e 400 horas");
+        return;
+    }
+
+    const valorHora = obterValorHoraPorCargo(cargo)
+    const salarioBruto = calcularSalarioBruto(valorHora, horas)
+
+    if (indexParaEditar === -1) {
+        criarLinha(nome, cargo, horas, valorHora, salarioBruto, proximoId)
+
+        proximoId += 1;
+    } else {
+        editarLinha(nome, cargo, horaas, valorHora, salarioBruto);
+    }
+
+    limparCampos()
+}
+
+function calcularSalarioBruto(valorHora, quantidadeHoras) {
     const salarioBruto = valorHora * quantidadeHoras;
     return salarioBruto;
 }
 
 function obterValorHoraPorCargo(cargo) {
-    if (curso === "Junior") {
+    if (cargo === "Junior") {
         return 10;
     } else if (cargo === "Pleno") {
         return 22.72;
     } else if (cargo === "Senior") {
         return 40.91;
     } else {
-        
+        return 0;
     }
 }
+
+function criarLinha(nome, cargo, horas, valorHora, salarioBruto, id) {
+    const linha = `<tr class="border-b border-gray-700 hover:bg-gray-700">
+                        <td class="px-4 py-3">${id}</td>
+                        <td class="px-4 py-3">${nome}</td>
+                        <td class="px-4 py-3">${cargo}</td>
+                        <td class="px-4 py-3">${horas}</td>
+                        <td class="px-4 py-3">R$${salarioBruto.toFixed(2)}</td>
+                        <td class="px-4 py-3 flex gap-2">
+
+                            <button
+                                class="botao-editar bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-3 py-1 rounded-md text-sm transition">
+                                Editar
+                            </button>
+
+                            <button
+                                class="botao-apagar bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-1 rounded-md text-sm transition">
+                                Excluir
+                            </button>
+
+                        </td>
+                    </tr>`;
+
+    tbody.innerHTML = tbody.innerHTML + linha;
+
+    adiciocionarCliqueBotoes();
+}
+
+function editarLinha(nome, cargo, horas, valorHora, salarioBruto) {
+    const linhaEditar = tbody.children[indexParaEditar - 1];
+
+    // Alterar a coluna do nome
+    linhaEditar.children[1].innerHTML = nome;
+    linhaEditar.children[2].innerHTML = cargo;
+    linhaEditar.children[3].innerHTML = horas;
+    linhaEditar.children[4].innerHTML = `R$ ${salarioBruto.toFixed(2)}`;
+}
+
+function limparCampos() {
+    campoNome.value = ""
+    campoCargo.value = ""
+    campoHoras.value = ""
+
+    // reset dos indice para editar que permitira cadastrar novamente
+    indexParaEditar = -1;
+}
+
+function adiciocionarCliqueBotoes() {
+    let editarBotoes = document.getElementsByClassName("botao-editar")
+    for (let i = 0; i < editarBotoes.length; i += 1) {
+        let botaoEditar = editarBotoes[i];
+        botaoEditar.addEventListener("click", preencherCamposParaEditar);
+    }
+
+    let apagarBotoes = document.getElementsByClassName("botao-apagar")
+    for (let i = 0; i < apagarBotoes.length; i += 1) {
+        let botaoApagar = apagarBotoes[i];
+        botaoApagar.addEventListener("click", confirmarParaApagar);
+    }
+}
+
+function preencherCamposParaEditar(event) {
+    const botaoEditar = event.target;
+    const coluna = botaoEditar.parentElement;
+    const linha = coluna.parentElement;
+    const colunasDaLinha = linha.children;
+    const id = colunasDaLinha[0].innerHTML;
+    const nome = colunasDaLinha[1].innerHTML;
+    const cargo = colunasDaLinha[2].innerHTML;
+    const horas = colunasDaLinha[3].innerHTML
+
+    campoNome.value = nome;
+    campoCargo.value = cargo;
+    campoHoras.value = horas;
+
+    // Salvar na variavel global para que depois conseguirmos editar o dado corretamente
+    indexParaEditar = linha.rowIndex;
+}
+
+function confirmarParaApagar(event) {
+    const confirmarApagar = confirm("Deseja Realmente Apagar?")
+    if (confirmarApagar === false) {
+        return
+    }
+
+    const bortaoClieque = event.target;
+    const coluna = bortaoClieque.parentElement;
+    const linha = coluna.parentElement;
+    tbody.removeChild(linha);
+
+    alert("Colaborador removido com sucesso")
+}
+
+// Adiciona o clique para a linha existente na tabela
+adiciocionarCliqueBotoes();
