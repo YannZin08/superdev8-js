@@ -9,6 +9,7 @@ botaoCadastrar.addEventListener("click", cadastrarJogo);
 // Pega o campo de input do HTML que possui o id "campo-nome"
 const campoNome = document.getElementById("campo-nome");
 
+
 // Adiciona um "ouvinte de evento" ao campo
 // Quando ocorre o envento do teclado pressionando
 campoNome.addEventListener("keydown", eventoEnterCampo);
@@ -26,17 +27,20 @@ function eventoEnterCampo(event){
     }
 }
 
+
 // Função responsável por cadastrar (adicionar) um jogo na lista
 function cadastrarJogo(){
-    // Pega o valor digitado dentro do input
+
+    // Pega o valor digitado dentro do input,removendo espaços
     const nome = campoNome.value.trim();
 
-    // Verificar se o nome digitado contém menos de 2 caracter
-    if (nome.lenght < 2){
-    // Apresenta uma mensagem que contém menos 2 caracteres
-        alert("Nome deve conter no mínimo 2 caracter");
-    // Encerra a execução deste método, pois o não deve cadastrar quando o nome é inválido
-        return;
+    // Verifica se o nome digitado contem menos de 2 caracteres
+    if (nome.length < 2){
+        // Apresente uma mensagem que contem menos de 2 caracteres
+        alert("O Nome deve conter no minimo 2 caracteres");
+        // Encerra a execução desse metodo, pois não deve cadastrar quando o nome é invalido
+        return
+
     }
 
     // Cria um novo elemento <li> (item de lista) no HTML

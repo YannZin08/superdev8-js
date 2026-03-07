@@ -1,0 +1,122 @@
+/* Fundo da página e fonte geral */
+body {
+    background-color: #1f2937; /* Cinza escuro */
+    color: #f9fafb; /* Branco suave */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Títulos */
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.1rem;
+    color: #d1d5db; /* cinza claro */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Input */
+input[type="number"] {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #374151;
+    font-size: 1rem;
+    width: 250px;
+    margin-top: 5px;
+    outline: none;
+}
+
+input[type="number"]:focus {
+    border-color: #3b82f6; /* azul */
+    box-shadow: 0 0 5px #3b82f6;
+}
+
+/* Botões */
+button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin: 5px;
+}
+
+/* Cores diferentes para cada moeda */
+#botao-converter-usd { background-color: #2563eb; }
+#botao-converter-usd:hover { background-color: #1d4ed8; }
+
+#botao-converter-eur { background-color: #16a34a; }
+#botao-converter-eur:hover { background-color: #15803d; }
+
+#botao-converter-gbp { background-color: #7c3aed; }
+#botao-converter-gbp:hover { background-color: #6d28d9; }
+
+#botao-converter-cad { background-color: #f59e0b; }
+#botao-converter-cad:hover { background-color: #d97706; }
+
+#botao-converter-jpy { background-color: #ec4899; }
+#botao-converter-jpy:hover { background-color: #db2777; }
+
+#botao-converter-ars { background-color: #dc2626; }
+#botao-converter-ars:hover { background-color: #b91c1c; }
+
+#botao-converter-chf { background-color: #374151; }
+#botao-converter-chf:hover { background-color: #1f2937; }
+
+#botao-converter-cny { background-color: #4f46e5; }
+#botao-converter-cny:hover { background-color: #4338ca; }
+
+/* Container dos botões */
+div > button {
+    display: inline-block;
+    min-width: 160px;
+    text-align: center;
+}
+
+/* Lista de conversões */
+ul#conversoes {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+    width: 300px;
+}
+
+ul#conversoes li {
+    background-color: #374151;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+ul#conversoes li:hover {
+    background-color: #4b5563;
+}
+
+/* Responsividade */
+@media (max-width: 500px) {
+    input[type="number"] {
+        width: 100%;
+    }
+
+    div > button {
+        min-width: 100%;
+    }
+
+    ul#conversoes {
+        width: 100%;
+    }
+}
