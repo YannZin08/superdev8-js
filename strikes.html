@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Verificador de Strikes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        input { margin: 5px 0; padding: 5px; }
+        button { padding: 5px 10px; margin-top: 10px; }
+        #resultado { margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Verificador de Strikes</h2>
+    <label for="nick">Nick:</label><br>
+    <input type="text" id="nick" placeholder="Digite o nick"><br>
+
+    <label for="strikes">Quantidade de Strikes:</label><br>
+    <input type="number" id="strikes" min="0" placeholder="0"><br>
+
+    <button id="botaoVerificar">Verificar</button>
+
+    <div id="resultado"></div>
+
+    <script src="assets/js/strikes.js"></script>
+</body>
+</html>
