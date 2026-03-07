@@ -77,14 +77,12 @@ button {
 #botao-converter-cny { background-color: #4f46e5; }
 #botao-converter-cny:hover { background-color: #4338ca; }
 
-/* Container dos botões */
 div > button {
     display: inline-block;
     min-width: 160px;
     text-align: center;
 }
 
-/* Lista de conversões */
 ul#conversoes {
     margin-top: 20px;
     padding: 0;
