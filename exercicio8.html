@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Funcionários</title>
+</head>
+
+<body>
+
+    <h2>Cadastro de Funcionários</h2>
+
+    <label for="campo-nome">Nome:</label>
+    <input type="text" id="campo-nome"><br><br>
+    <label for="campo-cargo">Cargo:</label>
+    <input type="text" id="campo-cargo"><br><br>
+    <label for="campo-salario">Salário:</label>
+    <input type="number" id="campo-salario"><br><br>
+    <label for="campo-filhos">Quantidade de filhos:</label>
+    <input type="number" id="campo-filhos"><br><br>
+    <button id="salvar">Salvar</button>
+
+    <h2>Lista de Funcionários</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Cargo</th>
+                <th>Salário</th>
+                <th>Quantidade de filhos</th>
+                <th>Auxílio família</th>
+                <th>Salário final</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabela-funcionarios">
+        </tbody>
+
+    </table>
+
+    <script src="assets/js/exercicio8"></script>
+
+</body>
+
+</html>
